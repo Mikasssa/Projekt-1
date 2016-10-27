@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+struct argumenty {
+	int a;
+	int b;
+};
+
+int suma(struct argumenty);
+int mnozenie (struct argumenty);
+int funkcjaZeWsk (struct argumenty,int(*funkcja)(struct argumenty));
+
+int main(int argc,char *argv[]){
+
+
+	    struct argumenty parametry;
+  	    parametry.a =atoi(argv[1]) ;
+            parametry.b =atoi(argv[2]) ;
+
+	int(*funkcja)(struct argumenty);
+	if (argc<4){
+	printf("Nie wystarczająca ilość parametrów.\n");
+	} 
+
+	else {
+	printf("Wybór działania = %s\n", argv[3]);
+        char *str1 = "suma";
+        char *str2 = "mnozenie";
+        char *str3 = argv[3]; 
+
+      		if( (strcmp(str1,str3))==0){
+			funkcja = suma;
+ 			printf("Działanie: %d + %d = %d\n", parametry.a, parametry.b, funkcjaZeWsk(parametry,funkcja));
+		}
+
+       		else if((strcmp(str2,str3))==0){ 
+			funkcja = mnozenie; 
+			printf("Działanie: %d * %d = %d\n", parametry.a, parametry.b, funkcjaZeWsk(parametry,funkcja));
+		}
+
+		else {
+			printf("Zły argument.\n");
+		}
+
+	} 
+
+}
+
+
+int suma(struct argumenty parametry){
+int a = parametry.a;
+int b = parametry.b;
+return (a+b);
+
+}
+
+int mnozenie(struct argumenty parametry){
+return (parametry.a*parametry.b);
+
+}
+
+int funkcjaZeWsk(struct argumenty parametry, int (*funkcja)(struct argumenty)){
+return (funkcja(parametry));
+}
+
